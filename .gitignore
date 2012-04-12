@@ -1,0 +1,6 @@
+rpm/*
+debian/files
+debian/pkgcheck.debhelper.log
+debian/pkgcheck.substvars
+debian/pkgcheck/*
+

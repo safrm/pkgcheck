@@ -1,0 +1,136 @@
+#!/bin/sh
+#pkgcheck - fast and easy way to be sure that your package does not miss some files https://github.com/safrm/pkgcheck
+#author: Miroslav Safr <miroslav.safr@gmail.com>
+#                                                                
+
+DEFINITION_FILE=
+PACKAGE=
+COMMAND= 
+while [ $# -gt 0 ]; do
+  case "$1" in
+    show )                COMMAND=show ;;
+    dump )                COMMAND=dump ;;
+    check )               COMMAND=check ;;
+    -f | --file) shift
+               DEFINITION_FILE=$1    
+               ;;
+    -p | --package) shift
+               PACKAGE=$1   
+               ;;
+    -v | --verbose) VERBOSE=1
+		;;
+    -h | -? | --help) echo "pkgcheck: -h| -? | --help ..........help"
+                     echo "          commands: show ...........show files in package"
+                     echo "                    dump ...........dump to file"
+                     echo "                    check ..........check package against file"
+	             echo "          -f| --file <file> ........definition file to dump or read"
+	             echo "          -p| --package <package> ..package file (rpm or deb)"
+                     echo "          -v| --verbose ............more output for show"
+	             exit 0;
+               ;;
+	* )    echo "unsuported parameter $1"
+               exit 1; 
+               ;; 
+  esac
+  shift
+done
+
+# no defined command 
+if [ "x$COMMAND" = "x" ] 
+then 
+ echo "command not defined - using show" 
+ COMMAND=show
+fi 
+
+# no defined file
+if [ "x$DEFINITION_FILE" = "x" -a "x$COMMAND" != "xshow" ] 
+then 
+ echo "Definition file not defined - using default ./contents.txt "
+ DEFINITION_FILE=./contents.txt
+fi 
+
+# no defined package
+if [ "x$PACKAGE" = "x" ] 
+then 
+ echo "Package not defined." 
+ exit 1
+elif [ ! -f $PACKAGE ]
+then
+ echo "Package file $PACKAGE does not exist" 
+ exit 1
+else
+    PACKAGE_EXT=`echo "$PACKAGE"|awk -F . '{print $NF}'`
+    if [ "x$PACKAGE_EXT" = "x" ] 
+    then
+	echo "Not recognized package extension $PACKAGE_EXT" 
+	exit 1
+    elif [ "x$PACKAGE_EXT" = "xrpm" ]
+    then 
+	:
+#	echo "RPM package"
+    elif [ "x$PACKAGE_EXT" = "xdeb" ]  
+    then 
+	:
+#        echo "DEB package"
+    else
+ 	echo "Not supported package extension $PACKAGE_EXT" 
+	exit 1
+    fi
+fi 
+
+#echo "PACKAGE:$PACKAGE  DEFINITION_FILE:$DEFINITION_FILE COMMAND:$COMMAND VERBOSE:$VERBOSE"
+
+if [ "x$COMMAND" = "xshow" ] 
+then 
+  if [ "x$PACKAGE_EXT" = "xrpm" ] 
+  then 
+     if [ -z "$VERBOSE" ]
+     then
+       rpm -qlp $PACKAGE
+     else
+       rpm -qlp -v $PACKAGE
+     fi
+     exit 0;
+  elif  [ "x$PACKAGE_EXT" = "xdeb" ]
+  then
+     if [ -z "$VERBOSE" ]
+     then
+       dpkg --contents $PACKAGE | awk '{print $6}'
+     else
+       dpkg --contents $PACKAGE 
+     fi
+    exit 0;
+  fi 
+
+elif [ "x$COMMAND" = "xdump" ] 
+then
+  if [ "x$PACKAGE_EXT" = "xrpm" ] 
+  then 
+    rpm -qlp $PACKAGE > $DEFINITION_FILE
+     exit 0;
+  elif  [ "x$PACKAGE_EXT" = "xdeb" ]
+  then
+     dpkg --contents $PACKAGE  > $DEFINITION_FILE
+     exit 0;
+  fi 
+elif [ "x$COMMAND" = "xcheck" ] 
+then
+  if [ "x$PACKAGE_EXT" = "xrpm" ] 
+  then 
+    #this syntaxe does not work here.
+    #    diff <( rpm -qlp $PACKAGE ; ) <( cat $DEFINITION_FILE; )
+    rpm  -qlp $PACKAGE | diff - $DEFINITION_FILE
+    exit $?;
+  elif  [ "x$PACKAGE_EXT" = "xdeb" ]
+  then
+#only filenames
+     dpkg --contents $PACKAGE | awk '{print $6}' | diff - $DEFINITION_FILE
+     exit $?;
+  fi 
+fi 
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+name: pkgcheck
+author:  Miroslav Safr <miroslav.safr@gmail.com>
+web: https://github.com/safrm/pkgcheck
+description: fast and easy way to be sure that your package does not miss some files 
+
+content: 
+ pkgcheck  ............... main linux bash script
+ install.sh .............. executes installation to /urs/bin directory
+
+parameters:
+          -h| -? | --help ..........help
+          commands: show ...........show files in package
+                    dump ...........dump to file
+                    check ..........check package against file
+          -f| --file <file> ........definition file to dump or read
+          -p| --package <package> ..package file (rpm or deb)
+          -v| --verbose ............more output for show"
+
+
+usage:
+1. show just files
+	pkgcheck show -p <my-package-version1>.<deb|rpm>  
+2. show more info 
+	pkgcheck show -p <my-package-version1>.<deb|rpm>  -v 
+2. dump package file contents to file
+	pkgcheck dump -p <my-package-version1>.<deb|rpm>  -f <my-package-content-version1>.txt
+3. check package againts file
+	pkgcheck check-p <my-package-version2>.<deb|rpm>  -f <my-package-content-version1>.txt
+
+
+install ubuntu:
+  1. add release key
+    wget -O - https://github.com/downloads/safrm/pkgcheck/Release.key | sudo apt-key add -
+  2. get package
+    wget https://github.com/downloads/safrm/pkgcheck_1.0.0-1_all.deb
+  3.install package
+    sudo dpkg -i ./pkgcheck_1.0.0-1_all.deb
+
+install fedora/RHEL:
+  1. add release key
+    wget https://github.com/downloads/safrm/pkgcheck/Release.key 
+    sudo rpm --import Release.key 
+    rm Release.key
+  2. get package
+    wget https://github.com/downloads/safrm/pkgcheck/pkgcheck-1.0.0-1.noarch.rpm
+  3.install package
+    sudo rpm -i ./pkgcheck-1.0.0-1.noarch.rpm
+

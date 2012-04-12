@@ -1,0 +1,13 @@
+Source: pkgcheck
+Section: libs
+Priority: optional
+Maintainer: Miroslav Safr <miroslav.safr@gmail.com>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 1.0.0
+
+Package: pkgcheck
+Architecture: all
+Depends: debhelper (>= 5), diffutils, ${misc:Depends}, ${launcher:Depends}, ${shlibs:Depends}
+Description: fast and easy way to be sure that your package does not miss some files
+
+
