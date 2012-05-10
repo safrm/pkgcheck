@@ -41,6 +41,7 @@ export INSTALL_ROOT=$RPM_BUILD_ROOT
 #make install
 mkdir -p %{buildroot}%{_bindir}
 install -m 755 ./pkgcheck %{buildroot}/usr/bin/
+sed -i".bkp" "1,/^VERSION=/s/^VERSION=.*/VERSION=%{version}/" %{buildroot}%{_bindir}/pkgcheck && rm -f %{buildroot}%{_bindir}/pkgcheck.bkp
 
 # >> install post
 # << install post
