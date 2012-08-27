@@ -10,8 +10,9 @@ USERID=`id -u`
     exit 0
 }
 #automatic version 
-. appver
+. appver || APP_FULL_VERSION_TAG=NA && APP_BUILD_DATE=`date +'%Y%m%d_%H%M'`
 
 mkdir -p -m 0755 $BINDIR
 install -m 0777 -v ./pkgcheck  $BINDIR/
 sed -i".bkp" "1,/^VERSION=/s/^VERSION=.*/VERSION=$APP_FULL_VERSION_TAG/" $BINDIR/pkgcheck && rm -f $BINDIR/pkgcheck.bkp
+sed -i".bkp" "1,/^VERSION_DATE=/s/^VERSION_DATE=.*/VERSION_DATE=$APP_BUILD_DATE/" $BINDIR/pkgcheck && rm -f $BINDIR/pkgcheck.bkp

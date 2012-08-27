@@ -2,7 +2,9 @@
 #pkgcheck - fast and easy way to be sure that your package does not miss some files https://github.com/safrm/pkgcheck
 #author: Miroslav Safr <miroslav.safr@gmail.com>
 #                                                                
-VERSION=NA
+VERSION=NA                                                                   
+VERSION_DATE=NA
+
 DEFINITION_FILE=
 PACKAGE=
 COMMAND= 
@@ -19,7 +21,7 @@ while [ $# -gt 0 ]; do
                ;;
     -v | --verbose) VERBOSE=1
 		;;
-    -h | -? | --help) echo "pkgcheck: -h| -? | --help ......... help"
+    -h | -? | --help) echo "`basename $0`: -h| -? | --help ......... help"
                      echo "          commands: show ........... show files in package"
                      echo "                    dump ........... dump to file"
                      echo "                    check .......... check package against file"
@@ -29,7 +31,7 @@ while [ $# -gt 0 ]; do
                      echo "          --version ................ verison number"
 	             exit 0;
                ;;
-     --version)    echo "`basename $0` $VERSION" 
+     --version)    echo "`basename $0` ${VERSION} ${VERSION_DATE}" 
                    exit 0 
                    ;;  
      * )           echo "unsuported parameter $1"
