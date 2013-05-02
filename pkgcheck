@@ -1,5 +1,5 @@
 #!/bin/sh
-#pkgcheck - fast and easy way to be sure that your package does not miss some files https://github.com/safrm/pkgcheck
+#pkgcheck - fast and easy way to be sure that your package does not miss some files http://safrm.net/projects/pkgcheck
 #author: Miroslav Safr <miroslav.safr@gmail.com>
 #                                                                
 VERSION=NA                                                                   

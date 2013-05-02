@@ -1,6 +1,6 @@
 name: pkgcheck
 author:  Miroslav Safr <miroslav.safr@gmail.com>
-web: https://github.com/safrm/pkgcheck
+web: http://safrm.net/projects/pkgcheck
 description: fast and easy way to be sure that your package does not miss some files 
 
 content: 
