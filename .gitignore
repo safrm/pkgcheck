@@ -1,6 +1,8 @@
 rpm/*
 debian/files
+debian/changelog
 debian/pkgcheck.debhelper.log
 debian/pkgcheck.substvars
 debian/pkgcheck/*
+pkgcheck.changes
 
