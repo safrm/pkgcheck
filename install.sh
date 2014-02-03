@@ -10,7 +10,7 @@ USERID=`id -u`
     exit 0
 }
 #automatic version 
-if [ command -v appver >/dev/null 2>&1 ]; then . appver; else APP_FULL_VERSION_TAG=NA ; APP_BUILD_DATE=`date +'%Y%m%d_%H%M'`; fi
+if command -v appver &>/dev/null; then . appver; else APP_SHORT_VERSION=NA ; APP_FULL_VERSION_TAG=NA ; APP_BUILD_DATE=`date +'%Y%m%d_%H%M'`; fi
 
 mkdir -p -m 0755 $BINDIR
 install -m 0777 -v ./pkgcheck  $BINDIR/
