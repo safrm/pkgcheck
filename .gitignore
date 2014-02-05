@@ -5,4 +5,4 @@ debian/pkgcheck.debhelper.log
 debian/pkgcheck.substvars
 debian/pkgcheck/*
 pkgcheck.changes
-
+doc/tmp/*

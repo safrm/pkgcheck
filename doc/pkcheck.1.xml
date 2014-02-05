@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<refentry id="pkgcheck.1">
+
+<refentryinfo>
+    <title>fast and easy way to be sure that your package does not miss some files</title>
+    <author>
+        <personname><firstname>Miroslav</firstname><surname>Safr</surname></personname>
+        <email>miroslav.safr@gmail.com</email>
+        <personblurb><para>Author and maintainer</para></personblurb>
+    </author>
+    <date>2013-02-03</date>
+    <productnumber>NA</productnumber>
+    <productname>pkgcheck</productname>
+</refentryinfo>
+
+<refmeta>
+    <refentrytitle>pkgcheck</refentrytitle>
+	<manvolnum>1</manvolnum>
+</refmeta>
+
+
+<refnamediv>
+    <refname>pkgcheck</refname>
+    <refpurpose>fast and easy way to be sure that your package does not miss some files</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+	<cmdsynopsis>
+        <command>pkgcheck  [COMMAND] [OPTIONS]</command>
+        <arg choice="opt">-h --help</arg>
+		<arg choice="opt">-f --file &lt;file&gt;</arg>
+		<arg choice="opt">-p --package &lt;package&gt;</arg>
+		<arg choice="opt">-v --verbose</arg>
+		<arg choice="opt">-V --version</arg>
+    </cmdsynopsis>
+</refsynopsisdiv>
+
+
+  <refsect1><title>DESCRIPTION</title>
+    <para>
+      Fast and easy way to be sure that your package does not miss some files. For dpkg/rpm based linuxes and windows systems.
+    </para>
+  </refsect1>
+
+  <refsect1>
+    <title>COMMANDS</title>
+    <para>
+          show .......... show files in package
+    </para>
+    <para>
+          dump .......... dump to file
+    </para>
+    <para>
+          check ......... check package against file
+    </para>
+  </refsect1>
+
+  <refsect1>
+    <title>OPTIONS</title>
+     <variablelist>
+
+
+      <varlistentry><term>-h --help</term>
+        <listitem>
+          <para>
+            Print help text to the screen.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry><term>-f --file &lt;file&gt;</term>
+        <listitem>
+          <para>
+            Definition file to dump or read.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry><term>-p --package &lt;package&gt;</term>
+        <listitem>
+          <para>
+           Package file (rpm or deb).
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry><term>-v --verbose</term>
+        <listitem>
+          <para>
+            Prints more output.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry><term>-V --version</term>
+        <listitem>
+          <para>
+            Prints version to the screen and exits.
+          </para>
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+  </refsect1>
+
+
+  <refsect1><title>SEE ALSO</title>
+    <para>
+      xmlenv(1).
+      <ulink url="http://safrm.net/projects/pkgcheck/"/>
+    </para>
+  </refsect1>
+
+  <refsect1><title>AUTHOR</title>
+    Miroslav Šafr &lt;miroslav.safr@gmail.com&gt;
+  </refsect1>
+  <refsect1><title>LICENSE</title>
+   LGPL2
+  </refsect1>
+</refentry>
