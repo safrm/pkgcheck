@@ -21,6 +21,7 @@ fast and easy way to be sure that your package does not miss some files
 %setup -c -n ./%{name}-%{version}
 
 %build
+cd doc && ./update_docs.sh && cd -
 
 %install
 rm -fr %{buildroot}
@@ -28,6 +29,12 @@ mkdir -p %{buildroot}%{_bindir}
 install -m 755 ./pkgcheck %{buildroot}/usr/bin/
 sed -i".bkp" "1,/^VERSION=/s/^VERSION=.*/VERSION=%{version}/" %{buildroot}%{_bindir}/pkgcheck && rm -f %{buildroot}%{_bindir}/pkgcheck.bkp
 sed -i".bkp" "1,/^VERSION_DATE=/s/^VERSION_DATE=.*/VERSION_DATE=%{APP_BUILD_DATE}/" %{buildroot}%{_bindir}/pkgcheck && rm -f %{buildroot}%{_bindir}/pkgcheck.bkp
+
+mkdir -p %{buildroot}%{_mandir}/man1
+install -m 644 ./doc/manpages %{buildroot}%{_mandir}/man1/
+mkdir -p %{buildroot}%{_docdir}/pkgcheck
+install -m 644 ./README %{buildroot}%{_docdir}/pkgcheck/
+install -m 644 ./LICENSE.LGPL %{buildroot}%{_docdir}/pkgcheck/
 
 %check
 for TEST in $(  grep -r -l -h "#\!/bin/sh" . )
@@ -42,6 +49,10 @@ done
 %files
 %defattr(-,root,root,-)
 %{_bindir}/pkgcheck
+
+%{_mandir}/man1/pkgcheck.1*
+%{_docdir}/pkgcheck/README
+%{_docdir}/pkgcheck/LICENSE.LGPL
 
 
 

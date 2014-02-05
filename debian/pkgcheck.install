@@ -1,2 +1,4 @@
 pkgcheck /usr/bin/
-
+README /usr/share/doc/pkgcheck
+LICENSE.LGPL /usr/share/doc/pkgcheck
+doc/manpages/pkgcheck.1  /usr/share/man/man1
