@@ -34,7 +34,6 @@ done
 #generate man and html pages
 for PAGEXML in $(  find ./tmp -type f -name "*1.xml" )
 do
-#	PAGENAME=`basename -s.8.xml $PAGEXML`
 	PAGENAME=`basename $PAGEXML .1.xml`
 	$XSLTPROC -o ./htmlpages/$PAGENAME.html $HTMLXSL $PAGEXML
 	$XSLTPROC -o ./manpages/$PAGENAME.1 $MANXSL $PAGEXML
