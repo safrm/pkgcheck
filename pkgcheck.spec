@@ -31,7 +31,7 @@ cd doc && ./update_docs.sh %{version} && cd -
 %install
 rm -fr %{buildroot}
 mkdir -p %{buildroot}%{_bindir}
-install -m 755 ./pkgcheck %{buildroot}/usr/bin/
+install -m 755 ./pkgcheck %{buildroot}%{_bindir}
 sed -i".bkp" "1,/^VERSION=/s/^VERSION=.*/VERSION=%{version}/" %{buildroot}%{_bindir}/pkgcheck && rm -f %{buildroot}%{_bindir}/pkgcheck.bkp
 sed -i".bkp" "1,/^VERSION_DATE=/s/^VERSION_DATE=.*/VERSION_DATE=%{APP_BUILD_DATE}/" %{buildroot}%{_bindir}/pkgcheck && rm -f %{buildroot}%{_bindir}/pkgcheck.bkp
 
@@ -40,6 +40,7 @@ install -m 644 ./doc/manpages/pkgcheck.1* %{buildroot}%{_mandir}/man1/
 mkdir -p %{buildroot}%{_docdir}/pkgcheck
 install -m 644 ./README %{buildroot}%{_docdir}/pkgcheck/
 install -m 644 ./LICENSE.LGPL %{buildroot}%{_docdir}/pkgcheck/
+sed -i".bkp" "1,/Version: /s/Version:   */Version:   %{version} %{APP_BUILD_DATE}/"  %{buildroot}%{_docdir}/pkgcheck/README && rm -f %{buildroot}%{_docdir}/pkgcheck/README.bkp
 
 %check
 for TEST in $(  grep -r -l -h "#\!/bin/sh" . )
@@ -56,6 +57,7 @@ done
 %{_bindir}/pkgcheck
 
 %{_mandir}/man1/pkgcheck.1*
+%dir %{_docdir}/pkgcheck
 %{_docdir}/pkgcheck/README
 %{_docdir}/pkgcheck/LICENSE.LGPL
 
