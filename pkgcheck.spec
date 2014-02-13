@@ -12,8 +12,11 @@ Vendor:     Miroslav Safr <miroslav.safr@gmail.com>
 Source0:    %{name}-%{version}.tar.bz2
 Autoreq: on
 Autoreqprov: on
-BuildRequires:  xsltproc
-BuildRequires:  docbook-xsl
+#BuildRequires:  xsltproc
+BuildRequires:  libxslt
+#BuildRequires:  docbook-xsl
+BuildRequires: docbook-xsl-stylesheets
+BuildRequires:  appver >= 1.1.1
 
 %description
 fast and easy way to be sure that your package does not miss some files
@@ -23,7 +26,7 @@ fast and easy way to be sure that your package does not miss some files
 %setup -c -n ./%{name}-%{version}
 
 %build
-cd doc && ./update_docs.sh && cd -
+cd doc && ./update_docs.sh %{version} && cd -
 
 %install
 rm -fr %{buildroot}

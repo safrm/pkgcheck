@@ -1,7 +1,8 @@
 #!/bin/sh
 #author:  Miroslav Safr miroslav.safr@gmail.com
+#first argument passes release version for releasing package builds
 
-XSLTPROC=/usr/bin/xsltproc
+XSLTPROC=/usr/bin/xsltproc 
 if [ ! -e $MANXSL ]; then
 	echo "$XSLTPROC does not exist, exiting.."
 	exit 1
@@ -18,7 +19,7 @@ if [ ! -e $MANXSL ]; then
 fi
 
 #automatic version 
-if command -v appver &>/dev/null; then . appver; else APP_SHORT_VERSION=NA ; APP_FULL_VERSION_TAG=NA ; APP_BUILD_DATE=`date +'%Y%m%d_%H%M'`; fi
+if command -v appver &>/dev/null; then . appver $1; else APP_SHORT_VERSION=NA ; APP_FULL_VERSION_TAG=NA ; APP_BUILD_DATE=`date +'%Y%m%d_%H%M'`; fi
 
 TEMP_DIR=./tmp
 rm -fr $TEMP_DIR && mkdir $TEMP_DIR
