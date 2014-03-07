@@ -1,14 +1,15 @@
 Source: pkgcheck
-Section: libs
+Section: utils
 Priority: optional
 Maintainer: Miroslav Safr <miroslav.safr@gmail.com>
-Build-Depends: debhelper (>= 5), xsltproc, docbook-xsl
-Suggest: appver
-Standards-Version: 1.0.0
+Build-Depends: debhelper (>= 5), appver, jenkins-support-scripts (>=1.2.3)
+Standards-Version: 3.8.1
+Homepage: http://safrm.net/projects/pkgcheck
 
 Package: pkgcheck
 Architecture: all
-Depends: dpkg,  diffutils, ${misc:Depends}, ${launcher:Depends}, ${shlibs:Depends}
-Description: fast and easy way to be sure that your package does not miss some files
+Depends: diffutils, ${misc:Depends}, ${launcher:Depends}, ${shlibs:Depends}
+Description: fast and easy way to be sure that your package does not miss \
+	some files
 
 
