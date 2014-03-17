@@ -35,6 +35,8 @@ sed -i".bkp" "1,/^VERSION_DATE=/s/^VERSION_DATE=.*/VERSION_DATE=%{APP_BUILD_DATE
 mkdir -p %{buildroot}%{_mandir}/man1
 install -m 644 ./doc/manpages/pkgcheck.1* %{buildroot}%{_mandir}/man1/
 
+%clean
+rm -fr %{buildroot}
 
 %check
 for TEST in $(  grep -r -l -h "#\!/bin/sh" . )
