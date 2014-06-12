@@ -2,6 +2,7 @@
 #pkgcheck - fast and easy way to be sure that your package does not miss some files http://safrm.net/projects/pkgcheck
 #author:  Miroslav Safr <miroslav.safr@gmail.com>
 BINDIR=/usr/bin
+COMPLETION_DIR=/etc/bash_completion.d
 MANDIR=/usr/share/man
 
 #root check
@@ -31,6 +32,9 @@ mkdir -p -m 0755 $BINDIR
 install -m 0777 -v ./pkgcheck  $BINDIR/
 sed -i".bkp" "1,/^VERSION=/s/^VERSION=.*/VERSION=$APP_FULL_VERSION_TAG/" $BINDIR/pkgcheck && rm -f $BINDIR/pkgcheck.bkp
 sed -i".bkp" "1,/^VERSION_DATE=/s/^VERSION_DATE=.*/VERSION_DATE=$APP_BUILD_DATE/" $BINDIR/pkgcheck && rm -f $BINDIR/pkgcheck.bkp
+
+mkdir -p -m 0755 $COMPLETION_DIR
+install -m 0777 -v ./pkgcheck_completion  $COMPLETION_DIR/
 
 MANPAGES=`find ./doc/manpages -type f`
 install -d -m 755 $MANDIR/man1

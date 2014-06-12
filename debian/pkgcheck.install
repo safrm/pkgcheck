@@ -1,2 +1,3 @@
 pkgcheck /usr/bin/
+pkgcheck_completion /etc/bash_completion.d/
 doc/manpages/pkgcheck.1  /usr/share/man/man1

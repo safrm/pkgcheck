@@ -32,6 +32,9 @@ install -m 755 ./pkgcheck %{buildroot}%{_bindir}
 sed -i".bkp" "1,/^VERSION=/s/^VERSION=.*/VERSION=%{version}/" %{buildroot}%{_bindir}/pkgcheck && rm -f %{buildroot}%{_bindir}/pkgcheck.bkp
 sed -i".bkp" "1,/^VERSION_DATE=/s/^VERSION_DATE=.*/VERSION_DATE=%{APP_BUILD_DATE}/" %{buildroot}%{_bindir}/pkgcheck && rm -f %{buildroot}%{_bindir}/pkgcheck.bkp
 
+mkdir -p -m 0755 %{buildroot}%{_sysconfdir}/bash_completion.d
+install -m 0777 -v ./pkgcheck_completion %{buildroot}%{_sysconfdir}/bash_completion.d
+
 mkdir -p %{buildroot}%{_mandir}/man1
 install -m 644 ./doc/manpages/pkgcheck.1* %{buildroot}%{_mandir}/man1/
 
@@ -51,6 +54,7 @@ done
 %files
 %defattr(-,root,root,-)
 %{_bindir}/pkgcheck
+%{_sysconfdir}/bash_completion.d/pkgcheck_completion
 %{_mandir}/man1/pkgcheck.1*
 
 

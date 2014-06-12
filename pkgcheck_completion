@@ -1,0 +1,20 @@
+# pkgcheck completion                                        -*- shell-script -*-
+
+_pkgcheck ()
+{
+    local cur prev words cword
+    _init_completion || return
+
+    if [[ "$cur" == -* ]]; then
+        COMPREPLY=( $( compgen -W '-h -f -p -v -V
+            --help --file --package --verbose --version' -- "$cur" ) )
+    else
+        COMPREPLY=( $( compgen -W 'show dump check' -- "$cur" ) )
+    fi
+
+
+
+} &&
+complete -F _pkgcheck pkgcheck
+
+# ex: ts=4 sw=4 et filetype=sh
