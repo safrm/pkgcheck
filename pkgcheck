@@ -5,6 +5,27 @@
 VERSION=NA                                                                   
 VERSION_DATE=NA
 
+#support color escape characters on different terminals
+alias echo="/bin/echo -e"
+
+BASENAME=`basename $0`
+usage() {
+    echo "$BASENAME ${VERSION} "
+    echo "Fast and easy way to be sure that your package does not miss some files"
+    echo "Usage: $BASENAME COMMAND [OPTIONS]..."
+    echo " Commands:"
+    echo "  show ........................ show files in package"
+    echo "  dump ........................ dump to file"
+    echo "  check ....................... check package against file"
+    echo " Options:"
+    echo "  -h, --help .................. help"
+	echo "  -f, --file <file> ........... definition file to dump or read"
+	echo "  -p, --package <package> ..... package file (rpm or deb)"
+    echo "  -v, --verbose ............... more output for show"
+    echo "  -V, --version ............... verison number"
+    echo " "
+}
+
 DEFINITION_FILE=
 PACKAGE=
 COMMAND= 
@@ -21,17 +42,8 @@ while [ $# -gt 0 ]; do
                ;;
     -v | --verbose) VERBOSE=1
 		;;
-    -h |  --help) echo "`basename $0`: -h --help ......... help"
-                     echo "          commands: show .......... show files in package"
-                     echo "                    dump .......... dump to file"
-                     echo "                    check ......... check package against file"
-	                 echo "          -f --file <file> ........ definition file to dump or read"
-	                 echo "          -p --package <package> .. package file (rpm or deb)"
-                     echo "          -v --verbose ............ more output for show"
-                     echo "          -V --version ............ verison number"
-	             exit 0;
-               ;;
-     --version)    echo "`basename $0` ${VERSION} ${VERSION_DATE}" 
+    -h |  --help) usage; exit 0 ;;
+    -V | --version) echo "$BASENAME ${VERSION} ${VERSION_DATE}" 
                    exit 0 
                    ;;  
      * )           echo "unsuported parameter $1"
