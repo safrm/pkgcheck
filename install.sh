@@ -1,42 +1,14 @@
 #/bin/sh
 #pkgcheck - fast and easy way to be sure that your package does not miss some files http://safrm.net/projects/pkgcheck
 #author:  Miroslav Safr <miroslav.safr@gmail.com>
-BINDIR=/usr/bin
-COMPLETION_DIR=/etc/bash_completion.d
-MANDIR=/usr/share/man
+. appver-installer
 
-#root check
-USERID=`id -u`
-[ $USERID -eq "0" ] || {
-    echo "I cannot continue, you should be root or run it with sudo!"
-    exit 0
-}
+appver_basic_scripts_test
 
-#automatic version
-if command -v appver 1>/dev/null 2>&1; then . appver; else APP_SHORT_VERSION=NA ; APP_FULL_VERSION_TAG=NA ; APP_BUILD_DATE=`date +'%Y%m%d_%H%M'`; fi
+$MKDIR_755 $BINDIR
+$INSTALL_755 ./pkgcheck  $BINDIR
+appver_update_version_and_date $BINDIR/pkgcheck
 
-#test
-for TEST in $(  grep -r -l -h --exclude-dir=.git --exclude-dir=test "#\!/bin/sh" . )
-do
-		sh -n $TEST
-		if  [ $? != 0 ]; then
-			echo "syntax error in $TEST, exiting.." 
-			exit 1
-		fi
-done
-
-#update documentation
-jss-docs-update ./doc 
-
-mkdir -p -m 0755 $BINDIR
-install -m 0777 -v ./pkgcheck  $BINDIR/
-sed -i".bkp" "1,/^VERSION=/s/^VERSION=.*/VERSION=$APP_FULL_VERSION_TAG/" $BINDIR/pkgcheck && rm -f $BINDIR/pkgcheck.bkp
-sed -i".bkp" "1,/^VERSION_DATE=/s/^VERSION_DATE=.*/VERSION_DATE=$APP_BUILD_DATE/" $BINDIR/pkgcheck && rm -f $BINDIR/pkgcheck.bkp
-
-mkdir -p -m 0755 $COMPLETION_DIR
-install -m 0777 -v ./pkgcheck_completion  $COMPLETION_DIR/
-
-MANPAGES=`find ./doc/manpages -type f`
-install -d -m 755 $MANDIR/man1
-install -m 644 $MANPAGES $MANDIR/man1
+$MKDIR_755 $COMPLETION_DIR
+$INSTALL_755 ./pkgcheck_completion  $COMPLETION_DIR
 
